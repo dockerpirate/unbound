@@ -5,7 +5,7 @@ RUN apk update && \
 	unbound \
 	ldns
 
-COPY --from=build --chown=nobody:nogroup /var/run/unbound /var/run/unbound
+#COPY --from=build --chown=nobody:nogroup /var/run/unbound /var/run/unbound
 
 COPY root.hints unbound.conf a-records.conf /etc/unbound/
 
