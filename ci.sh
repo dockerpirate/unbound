@@ -14,10 +14,10 @@ docker buildx build \
     --platform=linux/arm64,linux/arm/v7,linux/arm/v6 \
     -t $DOCKER_REPO:$TAG \
     --push \
-TAG2="${TRAVIS_TAG:-latest}"
+TAG_2="${TRAVIS_TAG:-latest}"
 docker buildx build \
      --progress plain \
     --platform=linux/arm64,linux/arm/v7,linux/arm/v6 \
-    -t $DOCKER_REPO:$TAG2 \
+    -t $DOCKER_REPO:$TAG_2 \
     --push \
     .
