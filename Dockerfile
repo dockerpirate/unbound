@@ -2,7 +2,8 @@ FROM alpine:3.12 as build
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 
-RUN apk add --no-cache \
+RUN apk update && \
+	apk add --no-cache \
 	build-base=0.5-r1 \
 	curl=7.66.0-r0 \
 	expat-dev=2.2.8-r0 \
