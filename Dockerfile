@@ -3,22 +3,13 @@ FROM alpine:3.12
 RUN apk update && \
 	apk add --no-cache \
 	unbound \
-	ldns \
-	openssl
-
-RUN mv /opt/unbound/etc/unbound/unbound.conf /opt/unbound/etc/unbound/example.conf \
-	&& rm -rf /tmp/* /opt/*/include /opt/*/man /opt/*/share \
-	&& strip /opt/unbound/sbin/unbound \
-	&& strip /opt/ldns/bin/drill \
-	&& (/opt/unbound/sbin/unbound-anchor -v || :)
+	ldns
 
 COPY --from=build --chown=nobody:nogroup /var/run/unbound /var/run/unbound
 
-COPY a-records.conf unbound.conf /opt/unbound/etc/unbound/
+COPY root.hints unbound.conf a-records.conf /etc/unbound/
 
-USER nobody
-
-ENV PATH /opt/unbound/sbin:/opt/ldns/bin:${PATH}
+#USER nobody
 
 ENTRYPOINT ["unbound", "-d"]
 
