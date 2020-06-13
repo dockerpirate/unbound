@@ -4,7 +4,8 @@ RUN apk update && \
 	apk add --no-cache \
 	unbound \
 	ldns \
-	drill
+	drill \
+	bind-tools
 
 #COPY --from=build --chown=nobody:nogroup /var/run/unbound /var/run/unbound
 
@@ -18,5 +19,5 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 	CMD [ "drill", "-p", "5053", "nlnetlabs.nl", "@127.0.0.1" ]
 
 RUN ["unbound", "-V"]
-
 RUN ["drill", "-v"]
+RUN ["dig", "-v"]
