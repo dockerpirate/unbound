@@ -3,11 +3,12 @@ FROM alpine:3.12
 RUN apk update && \
 	apk add --no-cache \
 	unbound \
-	ldns
+	ldns \
+	drill
 
 #COPY --from=build --chown=nobody:nogroup /var/run/unbound /var/run/unbound
-#root.hints
-COPY unbound.conf a-records.conf /etc/unbound/
+
+COPY root.hints unbound.conf a-records.conf /etc/unbound/
 
 #USER nobody
 
