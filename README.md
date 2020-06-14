@@ -27,11 +27,18 @@ NLnet Labs documentation: <https://nlnetlabs.nl/documentation/unbound/>
 # print general usage
 docker run --rm dockerpirate/unbound -h
 
-# run a recursive dns server on host port 5053
+# run a recursive dns server on host port 5053 (default = 53)
 docker run --name unbound -p 5053:5053/tcp -p 53:5053/udp dockerpirate/unbound
 
 # run unbound server with configuration mounted from a host directory
-docker run --name unbound -p 5053:5053/udp -v /path/to/config:/etc/unbound dockerpirate/unbound
+docker run --name unbound \
+            -p 5053:5053/udp \
+            --hostname unbound \
+            -m 64m \
+            --restart unless-stopped \
+            --cap-add=NET_ADMIN \
+            -v /path/to/config:/etc/unbound \
+            dockerpirate/unbound
 
 # update the root trust anchor for DNSSEC validation
 # assumes your existing container is named 'unbound' as in the example above
@@ -52,20 +59,25 @@ Use Unbound as upstream DNS for [Pi-Hole](https://pi-hole.net/).
 
 ```bash
 # run unbound and bind to port 5053 to avoid conflicts with pihole on port 53
-docker run -d --name unbound -p 5053:5053/tcp -p 5053:5053/udp --restart=unless-stopped klutchell/unbound
+docker run -d --name unbound -p 5053:5053/tcp -p 5053:5053/udp --restart=unless-stopped dockerpirate/unbound
 
-# run pihole and bind to host network stack with 127.0.0.1:5053 (unbound) as DNS1/DNS2
+# create new network (pihole_net), run pihole and bind to host network stack with 172.18.0.2:5053 (unbound) as DNS1/DNS2
 docker run -d --name pihole \
-    -e ServerIP=your_IP_here \
-    -e TZ=time_zone_here \
+    -p 53:53/tcp -p 53:53/udp \
+    -p 80:80 \
+    -p 443:443 \
+    -e ServerIP=172.18.0.2 \
+    -e TZ=Europe/Berlin \
     -e WEBPASSWORD=Password \
-    -e DNS1=127.0.0.1#5053 \
+    -e DNS1=172.18.0.3#5053 \
     -e DNS2=127.0.0.1#5053 \
-    -v ~/pihole/:/etc/pihole/ \
+    -v "$(pwd)/etc-pihole/:/etc/pihole/" \
+    -v "$(pwd)/etc-dnsmasq.d/:/etc/dnsmasq.d/" \
+    -m 256m \
     --dns=127.0.0.1 \
     --dns=1.1.1.1 \
-    --cap-add=NET_ADMIN \
-    --network=host \
+    --network=pihole_net \
+    --hostname pihole \
     --restart=unless-stopped \
     pihole/pihole
 ```
