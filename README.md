@@ -18,6 +18,13 @@ docker exec unbound drill -p 5053 sigok.verteiltesysteme.net @127.0.0.1
 docker exec unbound drill -p 5053 sigfail.verteiltesysteme.net @127.0.0.1
 docker stop unbound
 ```
+## First start
+```bash
+# At first start you have to copy config files to your host folder
+docker run --rm -d --name unbound -v <path>:/unbound dockerpirate/unbound
+docker exec unbound cp -a /etc/unbound /
+docker stop unbound
+```
 
 ## Usage
 
