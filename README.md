@@ -60,6 +60,16 @@ However Unbound has many features available so I recommend getting familiar with
 
 Please note that `chroot` and `username` configuration fields are not supported as the service is already running as `unbound:unbound`.
 
+### Update anchor-file and hints
+
+```bash
+docker exec unbound unbound-anchor -a /etc/unbound/root.key
+```
+Download on host run hints-file and put in mounted folder
+```bash
+wget -P <path> -O root.hints https://www.internic.net/domain/named.root
+```
+
 ### Example
 
 Use Unbound as upstream DNS for [Pi-Hole](https://pi-hole.net/).
