@@ -67,7 +67,7 @@ docker exec unbound unbound-anchor -a /etc/unbound/root.key
 ```
 Download on host run hints-file and put in mounted folder
 ```bash
-wget -P <path> -O root.hints https://www.internic.net/domain/named.root
+wget -O <path>/root.hints https://www.internic.net/domain/named.root
 ```
 
 ### Example
