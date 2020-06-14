@@ -8,8 +8,9 @@ RUN apk update && \
 	ldns \
 	drill \
 	bind-tools && \
-	unbound-anchor -a /tmp/unbound/root.key && \
-	chown -f unbound:unbound /tmp/unbound/root.key
+	unbound-anchor -a /tmp/unbound/root.key
+	
+RUN	chown -f unbound:unbound /tmp/unbound/root.key
 
 ENTRYPOINT ["cp", "-a", "-n", "/tmp/unbound/*", "/etc/unbound/", "&&", "unbound", "-d"]
 
