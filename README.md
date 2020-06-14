@@ -27,15 +27,15 @@ NLnet Labs documentation: <https://nlnetlabs.nl/documentation/unbound/>
 # print general usage
 docker run --rm dockerpirate/unbound -h
 
-# run a recursive dns server on host port 53
-docker run --name unbound -p 53:5053/tcp -p 53:5053/udp dockerpirate/unbound
+# run a recursive dns server on host port 5053
+docker run --name unbound -p 5053:5053/tcp -p 53:5053/udp dockerpirate/unbound
 
 # run unbound server with configuration mounted from a host directory
-docker run --name unbound -p 53:5053/udp -v /path/to/config:/opt/unbound/etc/unbound dockerpirate/unbound
+docker run --name unbound -p 5053:5053/udp -v /path/to/config:/etc/unbound dockerpirate/unbound
 
 # update the root trust anchor for DNSSEC validation
 # assumes your existing container is named 'unbound' as in the example above
-docker exec unbound unbound-anchor -v
+docker exec unbound unbound-anchor -a "/etc/unbound/root.key"
 ```
 
 The provided `unbound.conf` will provide recursive DNS with DNSSEC validation.
@@ -44,7 +44,7 @@ However Unbound has many features available so I recommend getting familiar with
 - <https://nlnetlabs.nl/documentation/unbound/unbound.conf/>
 - <https://nlnetlabs.nl/documentation/unbound/howto-optimise/>
 
-Please note that `chroot` and `username` configuration fields are not supported as the service is already running as `nobody:nogroup`.
+Please note that `chroot` and `username` configuration fields are not supported as the service is already running as `unbound:unbound`.
 
 ### Example
 
