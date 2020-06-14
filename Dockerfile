@@ -1,6 +1,6 @@
 FROM alpine:3.12 
 
-COPY root.hints unbound.conf /tmp/unbound/
+COPY root.hints unbound.conf /tmp/
 
 RUN apk update && \
 	apk add --no-cache \
@@ -8,9 +8,8 @@ RUN apk update && \
 	ldns \
 	drill \
 	bind-tools && \
-	unbound-anchor -a /tmp/unbound/root.key
-	
-RUN	chown -f unbound:unbound /tmp/unbound/root.key
+	unbound-anchor -a /tmp/root.key && \
+	chown -f unbound:unbound /tmp/root.key
 
 ENTRYPOINT ["cp", "-a", "-n", "/tmp/unbound/*", "/etc/unbound/", "&&", "unbound", "-d"]
 
