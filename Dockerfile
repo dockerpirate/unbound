@@ -5,13 +5,16 @@ RUN apk update && \
 	unbound \
 	ldns \
 	drill \
-	bind-tools
+	bind-tools && \
+	unbound-anchor -v	 
 
 #COPY --from=build --chown=nobody:nogroup /var/run/unbound /var/run/unbound
 
-COPY root.hints unbound.conf a-records.conf /etc/unbound/
+COPY root.hints unbound.conf /etc/unbound/
+RUN mv /usr/share/dnssec-root/trusted-key.key /etc/unbound/root.key && \
+	chown -R unbound:unbound /etc/unbound
 
-#USER nobody
+#USER unbound
 
 ENTRYPOINT ["unbound", "-d"]
 
