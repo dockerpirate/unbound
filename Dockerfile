@@ -12,7 +12,7 @@ RUN apk update && \
 	mv /usr/share/dnssec-root/trusted-key.key /tmp/unbound/root.key && \
 	chown -f unbound:unbound /tmp/unbound/root.key
 
-ENTRYPOINT ["cp", "-a", "-n", "/tmp/unbound/*", "/etc/unbound/", "&&", "unbound", "-d"]
+ENTRYPOINT ["unbound", "-d"]
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
 	CMD [ "drill", "-p", "5053", "nlnetlabs.nl", "@127.0.0.1" ]
