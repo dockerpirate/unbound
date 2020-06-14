@@ -8,8 +8,9 @@ RUN apk update && \
 	ldns \
 	drill \
 	bind-tools && \
-	unbound-anchor -v && \
-	mv /usr/share/dnssec-root/trusted-key.key /tmp/unbound/root.key && \
+	unbound-anchor -v 
+
+RUN mv /usr/share/dnssec-root/trusted-key.key /tmp/unbound/root.key && \
 	chown -f unbound:unbound /tmp/unbound/root.key
 
 ENTRYPOINT ["unbound", "-d"]
