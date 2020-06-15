@@ -11,12 +11,12 @@ echo $DOCKER_PASSWORD | docker login -u dockerpirate --password-stdin &> /dev/nu
 TAG="v1.10.1-312"
 docker buildx build \
      --progress plain \
-    --platform=linux/arm64,linux/arm/v7,linux/arm/v6 \
+    --platform=linux/arm64,linux/arm/v7,linux/arm/v6,linux/amd64,linux/386 \
     -t $DOCKER_REPO:$TAG \
     --push .
 TAG_2="${TRAVIS_TAG:-latest}"
 docker buildx build \
      --progress plain \
-    --platform=linux/arm64,linux/arm/v7,linux/arm/v6 \
+    --platform=linux/arm64,linux/arm/v7,linux/arm/v6,linux/amd64,linux/386 \
     -t $DOCKER_REPO:$TAG_2 \
     --push .
