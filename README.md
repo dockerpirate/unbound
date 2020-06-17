@@ -5,6 +5,7 @@ The architectures supported by this image are:
 - `linux/arm64`
 - `linux/arm/v7`
 - `linux/arm/v6`
+- `linux/amd64`
 
 Simply pulling `dockerpirate/unbound` should retrieve the correct image for your arch.
 
@@ -45,6 +46,7 @@ docker run --name unbound \
             --restart unless-stopped \
             --cap-add=NET_ADMIN \
             -v /path/to/config:/etc/unbound \
+            -v /etc/localtime:/etc/localtime:ro \
             dockerpirate/unbound
 
 # update the root trust anchor for DNSSEC validation
