@@ -6,6 +6,7 @@ The architectures supported by this image are:
 - `linux/arm/v7`
 - `linux/arm/v6`
 - `linux/amd64`
+- `linux/x86`
 
 Simply pulling `dockerpirate/unbound` should retrieve the correct image for your arch.
 
