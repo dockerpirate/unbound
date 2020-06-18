@@ -1,7 +1,6 @@
 #!/bin/bash
 
-ALPINE_M=3
-ALPINE_P=12
+ALPINE_M=312
 UNBOUND_M=1.10.1
 
 if [ "$TRAVIS_PULL_REQUEST" = "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
@@ -12,7 +11,7 @@ if [ "$TRAVIS_PULL_REQUEST" = "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
   exit $?
 fi
 echo $DOCKER_PASSWORD | docker login -u dockerpirate --password-stdin &> /dev/null
-TAG="$UNBOUND_M"-"$ALPINE_M""$ALPINE_P"
+TAG="$UNBOUND_M"-"$ALPINE_M"
 docker buildx build \
      --progress plain \
     --platform=linux/arm64,linux/arm/v7,linux/arm/v6,linux/amd64,linux/386 \
