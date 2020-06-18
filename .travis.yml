@@ -13,5 +13,5 @@ before_install:
   - sudo service docker start
 install:
   - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-  - docker buildx create --name xbuilder --use
+  - docker buildx create --name xbuilder --build-arg ALPINE_M --use
 script: bash ci.sh
