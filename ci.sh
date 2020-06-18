@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG_1=1.10.1-312
+TAG_1=1.10.1-"$ALPINE_M"12
 TAG_2="${TRAVIS_TAG:-latest}"
 
 if [ "$TRAVIS_PULL_REQUEST" = "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
