@@ -1,12 +1,19 @@
+ARG ALPINE_M=3
+ARG ALPINE_P=12
+ARG UNBOUND_M=1.10.1
 ARG UNBOUND_P=r0
 ARG LDNS=1.7.1-r1
 
-FROM alpine:3.12
+FROM alpine:$ALPINE_M.$ALPINE_P
+
+ARG UNBOUND_M
+ARG UNBOUND_P
+ARG LDNS
 
 COPY root.hints unbound.conf /etc/unbound/
 
 RUN apk update && \
-        apk add --no-cache unbound ldns drill bind-tools && \
+        apk add --no-cache unbound=$UNBOUND_M-$UNBOUND_P ldns=$LDNS drill bind-tools && \
         unbound-anchor -v && \
         mv /usr/share/dnssec-root/trusted-key.key /etc/unbound/root.key && \
         chown -R unbound:unbound /etc/unbound
