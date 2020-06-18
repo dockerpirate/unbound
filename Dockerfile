@@ -11,7 +11,7 @@ RUN apk update && \
 ENTRYPOINT ["unbound", "-c", "/etc/unbound/unbound.conf"]
 
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-        CMD [ "drill", "-p", "5053", "nlnetlabs.nl", "@127.0.0.1" ]
+        CMD [ "drill", "-p", "5053", "nlnetlabs.nl", "@127.0.0.1", "||", "exit", "1" ]
 
 RUN ["unbound", "-V"]
 RUN ["drill", "-v"]
