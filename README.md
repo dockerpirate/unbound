@@ -16,8 +16,8 @@ Simply pulling `dockerpirate/unbound` should retrieve the correct image for your
 # run selftest on local image
 docker run --rm -d --name unbound dockerpirate/unbound
 docker exec unbound unbound-anchor -v
-docker exec unbound drill -p 5053 sigok.verteiltesysteme.net @127.0.0.1
-docker exec unbound drill -p 5053 sigfail.verteiltesysteme.net @127.0.0.1
+docker exec unbound drill -p 53 sigok.verteiltesysteme.net @127.0.0.1
+docker exec unbound drill -p 53 sigfail.verteiltesysteme.net @127.0.0.1
 docker stop unbound
 ```
 ## First start
@@ -37,11 +37,11 @@ NLnet Labs documentation: <https://nlnetlabs.nl/documentation/unbound/>
 docker run --rm dockerpirate/unbound -h
 
 # run a recursive dns server on host port 5053 (default = 53)
-docker run --name unbound -p 5053:5053/tcp -p 53:5053/udp dockerpirate/unbound
+docker run --name unbound -p 5053:53/tcp -p 5053:53/udp dockerpirate/unbound
 
 # run unbound server with configuration mounted from a host directory
 docker run -d --name unbound \
-            -p 5053:5053/udp \
+            -p 5053:53/udp \
             --hostname unbound \
             -m 64m \
             --dns=127.0.0.1 \
