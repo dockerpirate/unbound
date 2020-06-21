@@ -42,6 +42,7 @@ docker run --name unbound -p 5053:53/tcp -p 5053:53/udp dockerpirate/unbound
 # run unbound server with configuration mounted from a host directory
 docker run -d --name unbound \
             -p 5053:53/udp \
+            -p 5053:53/tcp \
             --hostname unbound \
             -m 64m \
             --dns=127.0.0.1 \
