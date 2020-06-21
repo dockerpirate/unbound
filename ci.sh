@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TAG_1=1.10.1-"$ALPINE_M"12
+TAG_1="$UNBOUND_M"-"$ALPINE_M""$ALPINE_P"
 TAG_2="${TRAVIS_TAG:-latest}"
 
 if [ "$TRAVIS_PULL_REQUEST" = "true" ] || [ "$TRAVIS_BRANCH" != "master" ]; then
@@ -29,6 +29,7 @@ docker buildx build \
     --push .
 
 docker buildx build \
+     --build-arg ALPINE_M \
      --build-arg ALPINE_P \
      --build-arg UNBOUND_M \
      --build-arg UNBOUND_P \
