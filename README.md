@@ -44,6 +44,7 @@ docker run --name unbound \
             -p 5053:5053/udp \
             --hostname unbound \
             -m 64m \
+            --dns=127.0.0.1 \
             --restart unless-stopped \
             --cap-add=NET_ADMIN \
             -v /path/to/config:/etc/unbound \
