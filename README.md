@@ -40,7 +40,7 @@ docker run --rm dockerpirate/unbound -h
 docker run --name unbound -p 5053:5053/tcp -p 53:5053/udp dockerpirate/unbound
 
 # run unbound server with configuration mounted from a host directory
-docker run --name unbound \
+docker run -d --name unbound \
             -p 5053:5053/udp \
             --hostname unbound \
             -m 64m \
@@ -49,6 +49,8 @@ docker run --name unbound \
             --cap-add=NET_ADMIN \
             -v /path/to/config:/etc/unbound \
             -v /etc/localtime:/etc/localtime:ro \
+            --net=<custom network> \
+            --ip 172.18.0.x \
             dockerpirate/unbound
 
 # update the root trust anchor for DNSSEC validation
