@@ -50,6 +50,7 @@ docker run -d --name unbound \
             --cap-add=NET_ADMIN \
             -v /path/to/config:/etc/unbound \
             -v /etc/localtime:/etc/localtime:ro \
+            - v /etc/timezone:/etc/timezone:ro \
             --net=<custom network> \
             --ip 172.18.0.x \
             dockerpirate/unbound
