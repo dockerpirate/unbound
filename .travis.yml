@@ -1,7 +1,6 @@
 language: ruby
 os: linux
 dist: focal
-sudo: required
 env:
   global:
     - DOCKER_REPO=dockerpirate/unbound
