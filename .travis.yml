@@ -1,4 +1,6 @@
-dist: xenial
+language: ruby
+os: linux
+dist: focal
 sudo: required
 env:
   global:
