@@ -10,7 +10,8 @@ ARG LDNS
 COPY root.hints unbound.conf /etc/unbound/
 
 RUN apk update && \
-        apk add --no-cache unbound ldns drill bind-tools ca-certificates tzdata chrony && \
+        apk add --no-cache unbound ldns drill bind-tools ca-certificates build-base expat-dev libevent-dev \
+        libevent-static linux-headers openssl-dev perl tzdata chrony && \
         unbound-anchor -v && \
         mv /usr/share/dnssec-root/trusted-key.key /etc/unbound/root.key && \
         chown -R unbound:unbound /etc/unbound
